@@ -3,6 +3,8 @@
 
 pbdBASE is a set of bindings to and extensions for the distributed linear algebra libraries BLACS, PBLAS, and ScaLAPACK.  The package is very low-level, and unless you are very familiar with these libraries (or even if you are...), you are instead recommended to see the pbdDMAT and pbdDEMO packages.
 
+original: https://github.com/RBigData/pbdBASE
+
 
 
 ## Installation

@@ -1,0 +1,137 @@
+Release 0.5-3:
+  * Fix codes warned by "-Wargument-mismatch" because gcc10 gives warning/error
+    with "-fallow-argument-mismatch" or not. The files include norms.f90
+    and pinverse.f90 under "src/base/linalg/".
+
+Release 0.5-2:
+  * Import "utils" to NAMESPACE.
+
+Release 0.5-1:
+  * Fixed build issue with x64 windows.
+  * Update to latest pbdMPI/pbdSLAP flags/linking.
+  * Large internal re-organization.
+  * Added base.det().
+  * Fixed some minor Fortran issues.
+  * Deprecated dallreduce() R bindings.
+  * Better string portability with pdlaprnt().
+  * Add FC_LEN_T and USE_FC_LEN_T for C/Fortran char* length via size_t.
+  * Add examples and return values.
+
+Release 0.5-0:
+  * Generalize pdgemm() wrapper.
+  * Update to RNACI v0.5.0.
+  * Added base.pdgelqf().
+  * Added base.rpdorglq().
+  * Exported native routines.
+  * Fixed base.matexp() bug.
+  * Fixed some compiler warnings.
+  * Cleaned up some internal issues.
+  * Initial support for BLACS contexts with multiple MPI communicators.
+  * Fixed Windows build issue (Jeroen Ooms).
+  * Fix OMP flags issue.
+
+Release 0.4-6:
+  * Fix indexing problem in pdsweep()
+
+Release 0.4-5:
+  * Rewrote sweeper.
+  * Remove -w and fix compiler warnings.
+  * Update internal RNACI.
+  * Fixed several serious memory issues when computing eigenvalues.
+  * Switch pdsyev() to pdsyevr().
+
+Release 0.4-4:
+  * Add custom distribution function to replace pdgemr2d() for most purposes.
+  * Fixed pdgemr2d() bug.
+  * Fix several issues with condition numbers.
+  * Some small internal cleanup.
+
+Release 0.4-3:
+  * Add pigemr2d() wrapper.
+  * Added g2lcoord()
+  * Fixed indxg2p bug indexing bug.
+  * Swap floor() to as.integer() in indexing functions.
+
+Release 0.4-2:
+  * Fixed major problem with internal BLACS grid management with MKL.
+  * Switched to a header-only RNACI.
+  * Fixed build issues on Solaris (wcc).
+  * Added flag to disable src/export_blacs (needed for Intel mpi).
+
+Release 0.4-1:
+  * Fixed mkgblmat bug when using non-full contexts.
+  * Fixed build issue with Intel compilers.
+  * Updated README.md.
+
+Release 0.4-0:
+  * Changed base api.
+  * Numerous improvements to documentation.
+  * Switched to roxygen2.
+  * Numerous source organization improvements.
+
+Release 0.3-0
+  * Fixed compiler warnings generated from calling Fortran routines.
+  * Cleaned up R wrappers.
+  * Fixed memory/gc issue in R_PDGELS().
+  * Nasty ICTXT bug in descinit (notably affecting Cpdgemr2d) fixed.
+  * Modified matrix exponential kernels to take p as argument.
+  * Fixed OpenMP issues in Intel compiler suite.
+  * Fixed portability issue in Makevars.in.
+  * Stopgap fixed regression in MKSUBMAT.
+  * Stopgap fixed regression in MKGBLMAT.
+  * Updated vignette format.
+  * Fixed author affiliation in vignette.
+  * Linked with SEXPtools.
+  * Refactored internal wrappers to use SEXPtools.
+  * Fixed ownany() bug fixed that affected some grid shapes.
+  * Vignette copyright updated.
+  * PDGELS bug fixes.
+
+Release 0.2-3:
+  * Fixed errors in manual.
+  * Fixed matrix exponental bugs.
+  * Added matrix exponentiation drivers.
+  * Added experimental pdsyevx wrapper.
+  * Added driver for (non-symmetric) eigenvalue calculator.
+
+Release 0.2-2:
+  * Nasty init.grid() bugfix.
+  * Bugfix for changing between BLACS and MPI process numbering.
+  * Added experimental methods for level 2 distributed-distributed R-like BLAS.
+  * Fixed initialization bug in pdgemr2d.
+
+Release 0.2-1:
+  * Added PDSYEV wrappers.
+
+Release 0.2-0:
+  * Created better separation between pbdBASE and pbdDMAT packages
+  * Completely redid the internals.  Much less stupid/wasteful now.
+  * Expose BLACS C extension; BLACS pointers now exportable.
+  * Added pdsyrk wrappers.
+  * Modified pdgemm wrappers.
+  * Added new matrix norm and condition number routines.
+  * Fix .Last.lib problem.
+  * Fixed bug in SEXP wrappers of ScaLAPACK functions; passing 0-byte Ralloc'd vectors.
+  * Fix multi-arch problem.
+  * Add copyright to vignette.
+
+Release 0.1-1:
+  * Changed functions to write to new env rather than .GlobalEnv.
+  * Made PBLAS/ScaLAPACK wrappers less stupid.
+  * Fixed some nasty redistribution bugs.
+  * Made lm.fit-related foreign language wrappers more efficient.
+  * Significantly cleaned up all foreign language wrappers.
+  * Cleaned up wrappers for singular value decomposition.
+  * Distributed QR added.
+  * Distributed linear least squares solver added for n>p case.
+
+Release 0.1-0:
+  * Added demos.
+  * Modify "PDLAPRNT" function.
+  * Added insertion methods.
+  * Split 'pbdDMAC' into 'pbdBASE' and 'pbdDMAC'.
+  * Delete configure.ac and use RmpiSPMD:::LdFlags() and others.
+  * Rename to 'pbdDMAC'.
+  * Link with RmpiSLAP.
+  * Add guide, man pages, installation, ...
+  * Add BLACS, PBLAS, ScaLAPACK.

@@ -1,0 +1,126 @@
+SPMD_CPPFLAGS = @SPMD_CPPFLAGS@
+SPMD_LDFLAGS = @SPMD_LDFLAGS@
+
+SLAP_LDFLAGS = @SLAP_LDFLAGS@
+
+GFORTRAN_FLAGS = -DUSE_FC_LEN_T
+
+# set by configure
+GSL_CFLAGS = -I/usr/local/include
+GSL_LIBS   = -L/usr/local/lib -lgsl -lgslcblas -lm
+
+PKG_CPPFLAGS = $(SPMD_CPPFLAGS) -I../inst/RNACI $(GFORTRAN_FLAGS) $(GSL_CFLAGS) -I.
+PKG_LIBS = $(SLAP_LDFLAGS) $(FLIBS) $(SPMD_LDFLAGS) $(GSL_LIBS)
+
+
+BASE_OBJS = \
+		base/bprnt.o \
+		base/bprnt_c.o
+
+EXPM_OBJS = \
+		base/expm/pade_coefs.o \
+		base/expm/matexp.o \
+		base/expm/p_matexp.o
+
+LINALG_OBJS = \
+		base/linalg/norms.o \
+		base/linalg/pcrossprod.o \
+		base/linalg/pinverse.o \
+		base/linalg/prblas.o \
+		base/linalg/plm.o
+
+MISC_OBJS = \
+		coords.o \
+		comm_utils.o
+
+EXPORT_BLACS = @EXPORT_BLACS@
+
+
+STATS_OBJS = \
+		base/stats/variance.o
+
+UTILS = \
+		utils/fpmod.o \
+		utils/quicksort_utils.o \
+		utils/signs.o \
+		utils/sorts.o \
+		utils/strings.o \
+		utils/swaps.o
+
+
+### Unused UTILS
+EXPERIMENTAL = \
+		utils/subset.o \
+		utils/subset_special.o \
+		utils/subset_utils.o
+
+UTILS_OBJS = \
+		base/utils/blacs_util.o \
+		base/utils/dmat_redist.o \
+		base/utils/indices.o \
+		base/utils/putil.o \
+		base/utils/redist.o \
+		base/utils/scale.o \
+		base/utils/special.o
+
+R_OBJS = \
+		base_mpi_blacs.o \
+		base_mpi_blacs_reductions.o \
+		base_pblas_level3.o \
+		base_plinalg.o \
+		base_prblas.o \
+		base_putil.o \
+		base_scalapack.o \
+		base_variance.o \
+		dims.o \
+		lm.o \
+		matexp.o \
+		pbdBASE_native.o \
+		qr.o \
+		redist.o \
+		svd.o \
+		utility.o
+
+OBJECTS = $(BASE_OBJS) $(EXPM_OBJS) $(LINALG_OBJS) \
+					$(MISC_OBJS) $(EXPORT_BLACS) \
+					$(R_OBJS) $(STATS_OBJS) \
+					$(UTILS) $(UTILS_OBJS)
+
+
+### For user configuration.
+USER_CONF = Makeconf
+
+
+### Start making here.
+all: Makeconf $(SHLIB)
+
+Makeconf:
+	echo "SLAP_LDFLAGS = $(SLAP_LDFLAGS)" >> $(USER_CONF)
+	echo "SPMD_CPPFLAGS = $(SPMD_CPPFLAGS)" >> $(USER_CONF)
+	echo "SPMD_LDFLAGS = $(SPMD_LDFLAGS)" >> $(USER_CONF)
+	echo "GFORTRAN_FLAGS = $(GFORTRAN_FLAGS)" >> $(USER_CONF)
+	echo "PKG_CPPFLAGS = $(PKG_CPPFLAGS)" >> $(USER_CONF)
+	echo "PKG_CFLAGS = $(PKG_CFLAGS)" >> $(USER_CONF)
+	echo "PKG_FFLAGS = $(PKG_FFLAGS)" >> $(USER_CONF)
+	echo "PKG_LIBS = $(PKG_LIBS)" >> $(USER_CONF)
+
+
+# Fortran module dependencies
+utils/quicksort_utils.o: utils/swaps.o
+utils/sorts.o: utils/quicksort_utils.o utils/swaps.o
+utils/subset.o: utils/subset_special.o utils/subset_utils.o
+
+
+$(SHLIB): $(OBJECTS)
+
+
+clean:
+	@rm -rf *.o *.mod *.d *.rc *.so *.dylib *.dll *.a *.lib \
+		Makedeps Makevars $(USER_CONF) $(SHLIB) $(OBJECTS) \
+		base/*.o \
+		base/expm/*.o \
+		base/linalg/*.o \
+		base/stats/*.o \
+		base/utils/*.o \
+		export_blacs/*.o \
+		utils/*.o
