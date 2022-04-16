@@ -29,6 +29,6 @@
     FIT_MODEL=5
     DATASET=pm_20190101
 
-    mpirun -np $SLURM_NTASKS Rscript ./06_estimating_real_data.R  $path $DATASET $SLURM_NTASKS $ESTIMATION_METHOD $FIT_MODEL
+    mpirun -np $SLURM_NTASKS Rscript ./estimating_real_data.R  $path $DATASET $SLURM_NTASKS $ESTIMATION_METHOD $FIT_MODEL
 
     ```
